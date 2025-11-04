@@ -58,6 +58,10 @@ class Voiture
     }
 
 }
+class tailleVoiture extends Voiture // 👈 C'est ici qu'on utilise 'extends'
+{
+    // ... Nouvelles Attributs et Méthodes spécifiques ...
+}
 
 // Création de l'objet, le constructeur assigne automatiquement les valeurs
 $voiture1 = new Voiture("Audi", 1880, "Noir");
