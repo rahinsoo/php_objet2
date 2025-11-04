@@ -40,36 +40,64 @@ $personne1->monIdentite();
 
 class Voiture
 {
-    // Déclaration des propriétés
     public $marque;
     public $anneeDeFabrication;
     public $couleur;
+    // Ajout de l'attribut par défaut dans la classe mère
+    public $nombreDeRoues = 4;
 
     public function __construct($marque_param, $anneeDeFabrication_param, $couleur_param)
     {
         $this->marque = $marque_param;
         $this->anneeDeFabrication = $anneeDeFabrication_param;
         $this->couleur = $couleur_param;
+        // Le nombre de roues est par défaut à 4, pas besoin de le redéfinir ici
     }
 
+    //  Mise à jour de la méthode pour afficher le nombre de roues
     public function afficherCaracteristique()
     {
-        echo "<br>Marque : " . $this->marque . "<br>Année de Fabrication : " . $this->anneeDeFabrication . "<br>Couleur : " . $this->couleur;
+        echo "<br>--- Caractéristiques ---";
+        echo "<br>Marque : " . $this->marque;
+        echo "<br>Année de Fabrication : " . $this->anneeDeFabrication;
+        echo "<br>Couleur : " . $this->couleur;
+        echo "<br>**Nombre de Roues : " . $this->nombreDeRoues . "**";
     }
-
 }
-class tailleVoiture extends Voiture // 👈 C'est ici qu'on utilise 'extends'
+
+class VoitureVip extends Voiture
+    // Attention : La méthode 'VoitureVip()' et le constructeur vide en dehors de la classe
+    // étaient des erreurs de syntaxe. J'ai corrigé cela.
 {
-    // ... Nouvelles Attributs et Méthodes spécifiques ...
+    public function __construct($marque_param, $anneeDeFabrication_param, $couleur_param)
+    {
+        // On appelle le constructeur de la Classe Mère (Voiture) pour initialiser
+        // les attributs qu'elle gère ($marque, $anneeDeFabrication, $couleur).
+        parent::__construct($marque_param, $anneeDeFabrication_param, $couleur_param);
+
+        // On Surcharge l'attribut $nombreDeRoues (hérité de Voiture)
+        // avec la valeur spécifique aux VIP (6 roues).
+        $this->nombreDeRoues = 6;
+
+        echo "<br><br> **Nouvelle Voiture VIP créée !**";
+    }
 }
 
-// Création de l'objet, le constructeur assigne automatiquement les valeurs
-$voiture1 = new Voiture("Audi", 1880, "Noir");
+// Création de l'objet Voiture standard
+$voitureStandard = new Voiture("Audi", 1880, "Noir");
+$voitureStandard->afficherCaracteristique();
+// Affiche : Nombre de Roues : 4 (valeur par défaut)
 
-// Affichage correct des caractéristiques initiales (grâce au constructeur)
-$voiture1->afficherCaracteristique();
-$voiture1->marque = "BMW";
-$voiture1->anneeDeFabrication = 2020;
-$voiture1->couleur = "Bleu";
-// Affichage après modification
-$voiture1->afficherCaracteristique();
+// Création de l'objet Voiture VIP
+$voitureVIP = new VoitureVip("Mercedes", 2025, "Blanc");
+$voitureVIP->afficherCaracteristique();
+// Affiche : Nombre de Roues : 6 (valeur surchargée dans le constructeur de la Fille)
+
+// Exemple de modification de l'objet parent (comme dans ton code initial)
+$voitureStandard->marque = "BMW";
+$voitureStandard->anneeDeFabrication = 2020;
+$voitureStandard->couleur = "Bleu";
+
+echo "<br><br>--- Après modification de la voiture standard ---";
+$voitureStandard->afficherCaracteristique();
+

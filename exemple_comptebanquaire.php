@@ -145,3 +145,70 @@ $compteEpargne->appliquerInterets();
 
 // Utilisation d'une autre Méthode HERITÉE
 $compteEpargne->retirer(600.00); // Test du retrait impossible (solde insuffisant)
+
+/*
+ * Si l'Héritage (extends) est une transmission de recette (une est un type de), l'Interface est un Contrat ou une Promesse.
+ ** Une Interface est un plan qui dit : "Si tu me promets de respecter ce contrat, tu dois absolument avoir ces méthodes (actions)."
+ ** Le mot-clé implements signifie : "Cette classe accepte le contrat de l'interface et promet d'écrire toutes les méthodes demandées."
+ */
+
+// 🏦 INTERFACE (Le Contrat)
+interface ServiceBancaire
+{
+    // C'est juste une promesse, on n'écrit PAS le code des méthodes ici.
+    // On doit seulement dire : "Tu dois avoir ces deux actions."
+    public function crediter(float $montant): bool;
+    public function debiter(float $montant): bool;
+}
+
+// 🏦 CLASSE (La classe qui signe le Contrat)
+class CompteBancaire implements ServiceBancaire // 👈 On signe le contrat !
+{
+    protected $solde;
+    protected $titulaire;
+
+    public function __construct(string $titulaire, float $soldeInitial)
+    {
+        $this->titulaire = $titulaire;
+        $this->solde = $soldeInitial;
+        echo "✅ Compte créé pour **{$this->titulaire}**.\n";
+    }
+
+    // 🚀 La méthode 'crediter' est OBLIGATOIRE (demandée par l'Interface)
+    public function crediter(float $montant): bool
+    {
+        if ($montant > 0) {
+            $this->solde += $montant;
+            echo "➕ Crédit de {$montant} €. Nouveau solde : {$this->solde} €.\n";
+            return true;
+        }
+        return false;
+    }
+
+    // 🚀 La méthode 'debiter' est OBLIGATOIRE (demandée par l'Interface)
+    public function debiter(float $montant): bool
+    {
+        if ($montant > 0 && $this->solde >= $montant) {
+            $this->solde -= $montant;
+            echo "➖ Débit de {$montant} €. Nouveau solde : {$this->solde} €.\n";
+            return true;
+        }
+        echo "❌ Débit annulé. Solde insuffisant ({$this->solde} €).\n";
+        return false;
+    }
+
+    public function afficherSolde()
+    {
+        echo "💸 Solde actuel : **{$this->solde} €**.\n";
+    }
+}
+
+// ----------------------------------------------------
+// 🎁 UTILISATION DES OBJETS
+// ----------------------------------------------------
+
+$compteAlice = new CompteBancaire("Alice", 100.00);
+
+$compteAlice->crediter(50.00); // Utilisation de la méthode du contrat
+$compteAlice->debiter(20.00);  // Utilisation de la méthode du contrat
+$compteAlice->afficherSolde();
