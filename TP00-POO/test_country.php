@@ -11,16 +11,23 @@ require_once 'Country.php';
 <body>
 <h1>Test classe Country</h1>
 <?php
-$france = new Country("France", "Paris", 67.5, "Europe");
-// Création Japon
-$japon = new Country("Japon", "Tokyo", 125.8, "Asie");
-// Création Canada
-$canada = new Country("Canada", "Ottawa", 38.2, "Amérique du Nord");
-// Création Brésil
-$bresil = new Country("Brésil", "Brasília", 214.3, "Amérique du Sud");
-// Création Égypte
-$egypte = new Country("Égypte", "Le Caire", 104.3, "Afrique");
-$vietnam = new Country("Vietnam", "Hanoï", 98.2, "Asie");
+$chine = new Country("Chine", "Pékin", 1425, "Asie");
+$inde = new Country("Inde", "New Delhi", 1408, "Asie");
+$etatsunis = new DevelopedCountry("États-Unis", "Washington D.C.", 331, "Amérique du Nord", 25500);
+$indonesie = new Country("Indonésie", "Jakarta", 273, "Asie");
+$pakistan = new Country("Pakistan", "Islamabad", 231, "Asie");
+$bresil = new Country("Brésil", "Brasília", 214, "Amérique du Sud");
+$nigeria = new Country("Nigeria", "Abuja", 218, "Afrique");
+$bangladesh = new Country("Bangladesh", "Dacca", 169, "Asie");
+$russie = new Country("Russie", "Moscou", 144, "Europe/Asie");
+$mexique = new Country("Mexique", "Mexico", 126, "Amérique du Nord");
+$japon = new DevelopedCountry("Japon", "Tokyo", 125.8, "Asie", 4940);
+$france = new DevelopedCountry("France", "Paris", 67.5, "Europe", 2800);
+$canada = new DevelopedCountry("Canada", "Ottawa", 38.2, "Amérique du Nord", 2140);
+$tousPays = array(
+        $chine, $inde, $etatsunis, $indonesie, $pakistan, $bresil, $nigeria,
+        $bangladesh, $russie, $mexique, $japon, $france, $canada
+);
 ?>
 <h2>Test des getters (méthodes d'accès)</h2>
 
@@ -42,7 +49,7 @@ $vietnam = new Country("Vietnam", "Hanoï", 98.2, "Asie");
 </div>
 <div class='country'>
     <strong>🇪🇬 ÉGYPTE</strong><br>
-    <?php $egypte->getInfo(); ?>
+    <?php $nigeria->getInfo(); ?>
 </div>
 
 <h2>Exemples getters</h2>
@@ -67,7 +74,7 @@ $japon = new DevelopedCountry("Japon", "Tokyo", 125.8, "Asie", 4940);
     <?php echo $france->getInfo(); ?>
     </div>
 
-<div class='developed'>";
+<div class='developed'>
     <strong>🇩🇪 ALLEMAGNE (DevelopedCountry)</strong><br>
     <?php echo $allemagne->getInfo(); ?>
     </div>
@@ -84,7 +91,7 @@ $japon = new DevelopedCountry("Japon", "Tokyo", 125.8, "Asie", 4940);
 
     <u>Vietnam (Country) :</u><br>
     <?php
-    echo $vietnam->getInfo() . "<br>";
+    echo $inde->getInfo() . "<br>";
     echo "❌ Pas d'information sur le PIB<br><br>";
     ?>
 
@@ -202,7 +209,7 @@ $japon = new DevelopedCountry("Japon", "Tokyo", 125.8, "Asie", 4940);
 <h2>Bonus : Tableau de tous les pays</h2>
 <?php
 // On peut stocker tous les objets dans un tableau
-$pays = array($france, $japon, $canada, $bresil, $egypte, $allemagne, $vietnam);
+$pays = array($france, $japon, $canada, $bresil, $nigeria, $allemagne, $russie);
 ?>
 <table border='1' cellpadding='10' style='border-collapse: collapse; width: 100%;'>
     <tr style='background: #333; color: white;'>
@@ -223,5 +230,31 @@ $pays = array($france, $japon, $canada, $bresil, $egypte, $allemagne, $vietnam);
     }
     ?>
 </table>
+<table>
+    <tr>
+        <th>Pays</th>
+        <th>Population (millions)</th>
+        <th>Très peuplé ? (> 100M)</th>
+    </tr>
+<?php
+    // Parcours de tous les pays et test de isPopulous()
+    foreach ($tousPays as $p2) {
+    echo "<tr>";
+        echo "<td>" . $p2->getName() . "</td>";
+        echo "<td>" . $p2->getPopulation() . "</td>";
+
+        // Test de la méthode isPopulous()
+        if ($p2->isPopulous()) {
+        echo "<td class='yes'>✓ OUI</td>";
+        } else {
+        echo "<td class='no'>✗ Non</td>";
+        }
+
+        echo "</tr>";
+    }
+?>
+    </table>
+<?php afficherPaysTreePeuples($tousPays); ?>
+
 </body>
 </html>

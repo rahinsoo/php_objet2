@@ -188,6 +188,46 @@ class DevelopedCountry extends Country
     }
 }
 
+function afficherPaysTreePeuples($countries)
+{
+    // Compteur pour savoir combien de pays très peuplés on a trouvé
+    $count = 0;
+
+    echo "<h3>Liste des pays très peuplés (> 100 millions d'habitants)</h3>";
+
+    // Parcours de tous les pays du tableau
+    // $country représente chaque pays un par un
+    foreach ($countries as $country) {
+        // On appelle la méthode isPopulous() sur chaque pays
+        // Si elle retourne true, on affiche le pays
+        if ($country->isPopulous()) {
+            echo "<div class='populous'>";
+            echo "<strong> " . $country->getName() . "</strong><br>";
+            echo "Population : " . $country->getPopulation() . " millions d'habitants<br>";
+            echo "Capitale : " . $country->getCapital() . "<br>";
+            echo "Continent : " . $country->getContinent();
+
+            // Si c'est un pays développé, on affiche aussi le PIB
+            // On vérifie le type de l'objet avec instanceof
+            if ($country instanceof DevelopedCountry) {
+                echo "<br>PIB : " . $country->getGdp() . " milliards $";
+            }
+
+            echo "</div>";
+            $count++;
+        }
+    }
+
+    // Si aucun pays très peuplé n'a été trouvé
+    if ($count == 0) {
+        echo "<div class='not-populous'>";
+        echo "Aucun pays avec plus de 100 millions d'habitants.";
+        echo "</div>";
+    } else {
+        echo "<p><strong>Total : " . $count . " pays très peuplé(s)</strong></p>";
+    }
+}
+
 
 
 
