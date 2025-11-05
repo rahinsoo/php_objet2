@@ -87,15 +87,18 @@ class creature
     }
 
 }
+
 class guerrier extends creature
 {
     private $cri;
-public function __construct($nom, $sante, $force, $defense, $cri)
-{
-    parent::__construct($nom, $sante, $force, $defense);
-    $this -> cri = $cri;
 
-}
+    public function __construct($nom, $sante, $force, $defense, $cri)
+    {
+        parent::__construct($nom, $sante, $force, $defense);
+        $this->cri = $cri;
+
+    }
+
     public function crier2(): string
     {
         // Retourne une phrase propre à chaque créature
@@ -106,12 +109,14 @@ public function __construct($nom, $sante, $force, $defense, $cri)
 class mage extends creature
 {
     private $cri;
+
     public function __construct($nom, $sante, $force, $defense, $cri)
     {
         parent::__construct($nom, $sante, $force, $defense);
-        $this -> cri = $cri;
+        $this->cri = $cri;
 
     }
+
     public function crier2(): string
     {
         // Retourne une phrase propre à chaque créature
@@ -131,12 +136,14 @@ class mage extends creature
 class archer extends creature
 {
     private $cri;
+
     public function __construct($nom, $sante, $force, $defense, $cri)
     {
         parent::__construct($nom, $sante, $force, $defense);
-        $this -> cri = $cri;
+        $this->cri = $cri;
 
     }
+
     public function crier2(): string
     {
         // Retourne une phrase propre à chaque créature
@@ -146,11 +153,10 @@ class archer extends creature
     public function recevoirDegats(int $degats): void
     {
         $chance = rand(1, 100);
-        if ($chance <= 30 )
-        {
-            echo "attaque évité </br>";
+        if ($chance <= 30) {
+            echo '<p style="color:blue;">attaque évité </p>';
 
-        }else{
+        } else {
             // Reduit les points de santé en fonctions des degats reçus
             $degatsFinaux = max(0, $degats - $this->defense);
             $this->sante -= $degatsFinaux;

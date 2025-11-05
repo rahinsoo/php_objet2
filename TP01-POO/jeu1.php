@@ -8,12 +8,12 @@ $archer1 = new archer("Archer Detravers", 120, 15, 8, "Prêt à viser !");
 $creature = array($guerrier1, $mage1, $archer1);
 foreach ($creature as $cr)
 {
-    echo "{$cr->getNom()} : 
+    echo "<h3>{$cr->getNom()} : 
  Santé **{$cr->getSante()}** | 
  Force **{$cr->getForce()}** | 
- Défense **{$cr->getDefense()}**|</br>
-{$cr->crier()}</br>";
-    echo "{$cr->crier2()}</br></br>";
+ Défense **{$cr->getDefense()}**|</h3>
+<h4 style='color:#8b4e31;'>{$cr->crier()}</h4>";
+    echo "<h4 style='color:darkred;'>{$cr->crier2()}</h4></br>";
 }
 
 Arene::lancerCombat($archer1, $mage1);

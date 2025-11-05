@@ -3,25 +3,26 @@ class arene
 {
     public static function lancerCombat(Creature $c1, Creature $c2): void
     {
-        echo "## ⚔️ Le combat commence dans l'Arène ! ⚔️</br>";
-        echo "Participants : **{$c1->getNom()}** vs **{$c2->getNom()}**</br></br>";
+        echo "<h1>## ⚔️ Le combat commence dans l'Arène ! ⚔️</h1>";
+        echo "<h2>Participants : </h2>";
+    echo "<h4>**{$c1->getNom()}** vs **{$c2->getNom()}**</h4>";
 
         // Affichage des cris de combat
-        echo $c1->crier2() . "</br>";
-        echo $c2->crier2() . "</br></br>";
+        echo "<h1>" . $c1->crier2() . "</h1>";
+        echo "<h1>" . $c2->crier2() . "</h1></br>";
 
         $tour = 1;
 
         // Boucle principale : continue tant que les deux créatures sont en vie
         while ($c1->estEnVie() && $c2->estEnVie()) {
-            echo "</br>--- Tour **{$tour}** ---</br>";
+            echo "<h2>--- Tour **{$tour}** ---</h2>";
 
             // 1. Tour de la Créature c1 (si elle est toujours en vie)
             if ($c1->estEnVie()) {
-                echo "-> Attaque de **{$c1->getNom()}**:</br>";
+                echo "<h4> -> Attaque de **{$c1->getNom()}**:</h4>";
                 $c1->attaquer($c2);
-                echo "pdv " . $c1->getNom() . " : " . $c1->getSante() . "</br>";
-                echo "pdv " . $c2->getNom() . " : " . $c2->getSante() . "</br>";
+                echo "<p> pdv " . $c1->getNom() . " : " . $c1->getSante() . "</p>";
+                echo "<p> pdv " . $c2->getNom() . " : " . $c2->getSante() . "</p>";
             }
 
             // Vérifie si la créature c2 a été vaincue par l'attaque de c1
@@ -31,10 +32,10 @@ class arene
 
             // 2. Tour de la Créature c2 (si elle est toujours en vie)
             if ($c2->estEnVie()) {
-                echo "-> Attaque de **{$c2->getNom()}**:</br>";
+                echo "<h4>-> Attaque de **{$c2->getNom()}**:</h4>";
                 $c2->attaquer($c1);
-                echo "pdv " . $c1->getNom() . " : " . $c1->getSante() . "</br>";
-                echo "pdv " . $c2->getNom() . " : " . $c2->getSante() . "</br>";
+                echo "<p> pdv " . $c1->getNom() . " : " . $c1->getSante() . "</p>";
+                echo "<p> pdv " . $c2->getNom() . " : " . $c2->getSante() . "</p>";
             }
 
             $tour++;
