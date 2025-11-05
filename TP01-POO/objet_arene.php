@@ -8,8 +8,8 @@ class arene
     echo "<h4>**{$c1->getNom()}** vs **{$c2->getNom()}**</h4>";
 
         // Affichage des cris de combat
-        echo "<h1>" . $c1->crier2() . "</h1>";
-        echo "<h1>" . $c2->crier2() . "</h1></br>";
+        echo "<h2 style='color:darkred;'>" . $c1->crier2() . "</h2>";
+        echo "<h2 style='color:darkblue;'>" . $c2->crier2() . "</h2></br>";
 
         $tour = 1;
 

@@ -13,7 +13,7 @@ foreach ($creature as $cr)
  Force **{$cr->getForce()}** | 
  Défense **{$cr->getDefense()}**|</h3>
 <h4 style='color:#8b4e31;'>{$cr->crier()}</h4>";
-    echo "<h4 style='color:darkred;'>{$cr->crier2()}</h4></br>";
+    echo "<h4 style='color:darkred;'>{$cr->crier2()}</h4>";
 }
 
 Arene::lancerCombat($archer1, $mage1);
