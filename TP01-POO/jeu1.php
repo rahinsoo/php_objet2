@@ -15,5 +15,6 @@ foreach ($creature as $cr)
 <h4 style='color:#8b4e31;'>{$cr->crier()}</h4>";
     echo "<h4 style='color:darkred;'>{$cr->crier2()}</h4>";
 }
-
+//appel de la class arène de cette façon, car arène n'a pas d'attribut propre qu'une méthode
+// Cette méthode est en static qui permet de faire Arene::laméthode(arguments)
 Arene::lancerCombat($archer1, $mage1);
