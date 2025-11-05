@@ -5,7 +5,7 @@ class arene
     {
         echo "<h1>## ⚔️ Le combat commence dans l'Arène ! ⚔️</h1>";
         echo "<h2>Participants : </h2>";
-    echo "<h4>**{$c1->getNom()}** vs **{$c2->getNom()}**</h4>";
+        echo "<h4>**{$c1->getNom()}** vs **{$c2->getNom()}**</h4>";
 
         // Affichage des cris de combat
         echo "<h2 style='color:darkred;'>" . $c1->crier2() . "</h2>";
@@ -27,6 +27,7 @@ class arene
 
             // Vérifie si la créature c2 a été vaincue par l'attaque de c1
             if (!$c2->estEnVie()) {
+                echo "<p style='color:darkblue;'>" . $c2->getNom() . " ne se relève plus </p>";
                 break; // Sort de la boucle si le combat est terminé
             }
 
@@ -36,6 +37,11 @@ class arene
                 $c2->attaquer($c1);
                 echo "<p> pdv " . $c1->getNom() . " : " . $c1->getSante() . "</p>";
                 echo "<p> pdv " . $c2->getNom() . " : " . $c2->getSante() . "</p>";
+            }
+
+            if (!$c1->estEnVie()) {
+                echo "<p style='color:darkred;'>" . $c1->getNom() . " ne se relève plus </p>";
+                break; // Sort de la boucle si le combat est terminé
             }
 
             $tour++;
