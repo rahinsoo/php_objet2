@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +12,13 @@
 <body class="bg-dark">
 <header>
     <div class="container">
-        <h1 class="text-light">Test formulaire PDO</h1>
+        <h1 class="text-light">Envoie Plainte formulaire PDO</h1>
     </div>
 </header>
 <main>
     <?php
+    global $bdd;
+    require_once "bdd.php";
     // Initialisation des variables
     $nom = $email = $sujet = $message = null;
 
@@ -31,6 +32,9 @@
         $message = $_POST['message'];
     }
     ?>
+    <a href="plainte.php">
+        <button type="button" class="btn btn-secondary ">Voir les plaintes</button>
+    </a>
     <form action="formulaire.php" method="POST">
         <div class="form-group">
             <label for="nom" class="form-label text-light">Ton nom : </label>
@@ -68,9 +72,9 @@
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1" class="form-label text-light">Ton texte : </label>
-            <textarea class="form-control" name="message" value="<?php if (isset($_POST['message'])) {
-                echo htmlentities($_POST['message']);
-            } ?>" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" name="message" value="" id="exampleFormControlTextarea1" rows="3"><?php if (isset($_POST['message'])) {
+                    echo htmlentities($_POST['message']);
+                } ?></textarea>
             <?php
             if (isset($_POST['message']) && empty($_POST['message'])) {
                 echo "<p style='color:white;'>le message est vide </p>";
@@ -85,11 +89,19 @@
         // Vérification des champs non vides
         if (!empty($nom) && !empty($email) && !empty($sujet) && !empty($message)) {
 
-            // Affichage du résultat - Première occurrence
-            echo "<h3 class='text-light'> Soumission du formulaire réussie :</h3>";
-            echo "<p class='text-light'>Je m'appelle **$nom**, mon email est **$email**.</p> 
-                  <p class='text-light'>Ma plainte porte sur **$sujet**.</p> 
-                  <p class='text-light'>Contenu : <br> $message</p>";
+            $sql = "INSERT INTO plainte (nom, sujet, message, date_plainte) VALUE (:nom, :sujet, :message, :date_plainte)";
+            $insert = $bdd->prepare($sql);
+            $verif = $insert->execute([
+                    'nom' => $nom,
+                    'sujet' => $sujet,
+                    'message' => $message,
+                    'date_plainte' => date('Y-m-d'),
+            ]);
+            if ($verif) {
+                //echo "<h3>C'est inséré</h3>";
+                header("Location: plainte.php?success=1");
+                exit();
+            }
         } else {
             // Optionnel : Afficher un message d'erreur si des champs sont vides
             echo "<h3 class='text-danger Create selector'>Erreur : Veuillez remplir tous les champs du formulaire.</h3>";
